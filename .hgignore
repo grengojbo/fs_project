@@ -1,0 +1,15 @@
+\.pyc$
+^www/media/admin/
+settings_local.py
+debug_settings.py
+^urls_local\.py$
+secret.txt$
+^\.project$
+^\.pydevproject$
+\.egg-info/
+^build/
+^tmp/
+fabfile.py
+\.db$
+\.log$
+\.DS_Store$

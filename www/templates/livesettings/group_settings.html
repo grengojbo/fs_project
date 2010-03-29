@@ -1,0 +1,56 @@
+{% extends "admin/base_site.html" %}
+{% load i18n grp_csrf %}
+{% block userlinks %}
+{% url django-admindocs-docroot as docsroot %}{% if docsroot %}
+<li>
+    <a href="{{ docsroot }}">{% trans 'Documentation' %}</a>
+</li>
+{% endif %}
+<li>
+    <a href="{{ root_path }}password_change/">{% trans 'Change password' %}</a>
+</li>
+<li>
+    <a href="{{ root_path }}logout/">{% trans 'Log out' %}</a>
+</li>
+{% endblock %}
+{% block title %}{% trans 'Site settings' %}{% endblock %}
+{% block content %}
+<div id="content-main">
+{% if form.errors %}
+    <p class="errornote">
+    {% blocktrans count form.errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+    </p>
+{% endif %}
+{% if form.fields %}
+<form method="post">
+	<div class="module">
+    <table summary="{% filter capfirst %}{% blocktrans with group.name as name %}Settings included in {{ name }}.{% endblocktrans %}{% endfilter %}" width="100%">
+		{% for field in form %}
+			{% if field.errors %}
+			<tr class="error">
+				<td colspan="2">{{ field.errors }}</td>
+			</tr>
+			{% endif %}
+			<tr{% if field.errors %} class="error"{% endif %}>
+				<td style="width: 50%;">
+					{{ field.label_tag }}
+					{% if field.help_text %}
+						<p class="help">{{ field.help_text|break_at:40 }}</p>
+					{% endif %}
+					{% if field.field.default_text %}
+					    <p class="help">{{ field.field.default_text|break_at:40}}</p>
+					{% endif %}
+				</td>
+				<td>{{ field }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+	</div>
+<input type="submit" value="Save" class="default" />
+</form>
+{% else %}
+    <p>{% trans "You don't have permission to edit values." %}</p>
+{% endif %}
+</div>
+
+{% endblock %}
