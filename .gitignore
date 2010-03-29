@@ -17,3 +17,14 @@ fabfile.py
 *.db
 *.log
 .DS_Store
+*~
+*.orig
+*.rej
+.installed.cfg
+__minitage__*
+bin/*
+develop-eggs
+downloads
+eggs
+log
+parts
